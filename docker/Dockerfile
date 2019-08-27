@@ -34,28 +34,15 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zlib1g-dev
 
-# add link to actual perf binary. this should be compatible with any host linux
-# version
-RUN [ -f /usr/lib/linux-tools/*/perf ] && ln -s /usr/lib/linux-tools/*/perf /usr/local/bin/perf
+ENV RUST_STABLE_TOOLCHAIN=1.36.0 \
+    RUST_NIGHTLY_TOOLCHAIN=nightly-2019-07-01 \
+    RUSTUP_HOME=/usr/local/rustup \
+    CARGO_HOME=/usr/local/cargo \
+    PATH=/usr/local/cargo/bin:${PATH}
 
-# Install nodejs
-ARG NODEJS_VERSION=v10.16.0
-ARG NODEJS_URL=https://nodejs.org/dist/${NODEJS_VERSION}/node-${NODEJS_VERSION}-linux-x64.tar.xz
-RUN bash -c "mkdir -p /home/${UNAME}/nodejs \
-  && curl -L -o /home/${UNAME}/nodejs/nodejs.tar.xz $NODEJS_URL \
-  && tar -C /home/${UNAME}/nodejs -xf /home/${UNAME}/nodejs/nodejs.tar.xz"
-ENV PATH="/home/${UNAME}/nodejs/node-$NODEJS_VERSION-linux-x64/bin:${PATH}"
-
-# Install remark(-cli) and markdownlint for linting markdown files.
-RUN npm install -g \
-  markdownlint-cli@0.16.0 \
-  markdownlint@0.15.0
-
-# Install rust stable toolchain
-ENV RUST_STABLE_TOOLCHAIN=1.36.0
-RUN curl -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain=${RUST_STABLE_TOOLCHAIN}
-# ENV PATH="/home/${UNAME}/.cargo/bin:${PATH}"
-ENV PATH="/root/.cargo/bin:${PATH}"
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
+    sh -s -- -y --no-modify-path --default-toolchain=${RUST_STABLE_TOOLCHAIN}
+RUN chmod -R a+w $RUSTUP_HOME $CARGO_HOME
 RUN rustup component add clippy rustfmt
 
 # Install cargo-make
@@ -83,6 +70,43 @@ RUN cargo install cargo-bloat --version 0.8.0
 # Install tarpaulin https://crates.io/crates/cargo-tarpaulin
 RUN cargo install cargo-tarpaulin --version 0.8.4
 
-# Install rust nightly toolchain
-ENV RUST_NIGHTLY_TOOLCHAIN=nightly-2019-07-01
+# Install the Rust nightly toolchain
 RUN rustup install ${RUST_NIGHTLY_TOOLCHAIN}
+
+# Add link to actual perf binary
+RUN [ -f /usr/lib/linux-tools/*/perf ] && ln -s /usr/lib/linux-tools/*/perf /usr/local/bin/perf
+
+# Install the protobuf compiler
+ARG PROTOC_URL=https://github.com/protocolbuffers/protobuf/releases/download/v3.6.0/protoc-3.6.0-linux-x86_64.zip
+ARG PROTOC_SHA256=84e29b25de6896c6c4b22067fb79472dac13cf54240a7a210ef1cac623f5231d
+RUN set -eux; \
+		mkdir -p /tmp/protoc; \
+  	curl -L -o /tmp/protoc/protoc.zip $PROTOC_URL; \
+  	PROTOC_REMOTE_SHA256=$(sha256sum /tmp/protoc/protoc.zip | awk '{print $1}'); \
+  	[ "$PROTOC_SHA256" = "$PROTOC_REMOTE_SHA256" ]; \
+  	cd /tmp/protoc; \
+  	unzip protoc.zip; \
+  	cp -r bin /usr/local; \
+		cp -r include /usr/local; \
+		protoc --version;
+
+# Install nodejs
+ARG NODEJS_VERSION=v10.16.0
+ARG NODEJS_URL=https://nodejs.org/dist/${NODEJS_VERSION}/node-${NODEJS_VERSION}-linux-x64.tar.xz
+RUN set -eux; \
+		mkdir -p /tmp/nodejs; \
+  	curl -L -o /tmp/nodejs/nodejs.tar.xz $NODEJS_URL; \
+		tar -C /tmp/nodejs -xf /tmp/nodejs/nodejs.tar.xz; \
+  	cd /tmp/nodejs/node-$NODEJS_VERSION-linux-x64; \
+    cp -r bin /usr/local; \
+    cp -r include /usr/local; \
+    cp -r lib /usr/local; \
+    cp -r share /usr/local; \
+    npm -v;
+
+# Install remark(-cli) and markdownlint for linting markdown files.
+RUN npm install -g \
+    markdownlint-cli@0.16.0 \
+    markdownlint@0.15.0
+
+
