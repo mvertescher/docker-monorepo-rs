@@ -4,6 +4,5 @@ Rust Docker image with some additional tools.
 
 ## Deploying
 
-```sh
-$ ./deploy.sh
-```
+- Any pushes to the `master` branch will be automatically deployed to
+  hub.docker.com with the `latest` tag.

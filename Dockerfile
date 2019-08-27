@@ -42,7 +42,6 @@ ENV RUST_STABLE_TOOLCHAIN=1.36.0 \
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
     sh -s -- -y --no-modify-path --default-toolchain=${RUST_STABLE_TOOLCHAIN}
-RUN chmod -R a+w $RUSTUP_HOME $CARGO_HOME
 RUN rustup component add clippy rustfmt
 
 # Install cargo-make
@@ -109,4 +108,5 @@ RUN npm install -g \
     markdownlint-cli@0.16.0 \
     markdownlint@0.15.0
 
-
+# Finally, make Rust accessible for all users
+RUN chmod -R a+w $RUSTUP_HOME $CARGO_HOME
