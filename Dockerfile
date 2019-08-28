@@ -79,24 +79,24 @@ RUN [ -f /usr/lib/linux-tools/*/perf ] && ln -s /usr/lib/linux-tools/*/perf /usr
 ARG PROTOC_URL=https://github.com/protocolbuffers/protobuf/releases/download/v3.6.0/protoc-3.6.0-linux-x86_64.zip
 ARG PROTOC_SHA256=84e29b25de6896c6c4b22067fb79472dac13cf54240a7a210ef1cac623f5231d
 RUN set -eux; \
-		mkdir -p /tmp/protoc; \
-  	curl -L -o /tmp/protoc/protoc.zip $PROTOC_URL; \
-  	PROTOC_REMOTE_SHA256=$(sha256sum /tmp/protoc/protoc.zip | awk '{print $1}'); \
-  	[ "$PROTOC_SHA256" = "$PROTOC_REMOTE_SHA256" ]; \
-  	cd /tmp/protoc; \
-  	unzip protoc.zip; \
-  	cp -r bin /usr/local; \
-		cp -r include /usr/local; \
-		protoc --version;
+    mkdir -p /tmp/protoc; \
+    curl -L -o /tmp/protoc/protoc.zip $PROTOC_URL; \
+    PROTOC_REMOTE_SHA256=$(sha256sum /tmp/protoc/protoc.zip | awk '{print $1}'); \
+    [ "$PROTOC_SHA256" = "$PROTOC_REMOTE_SHA256" ]; \
+    cd /tmp/protoc; \
+    unzip protoc.zip; \
+    cp -r bin /usr/local; \
+    cp -r include /usr/local; \
+    protoc --version;
 
 # Install nodejs
 ARG NODEJS_VERSION=v10.16.0
 ARG NODEJS_URL=https://nodejs.org/dist/${NODEJS_VERSION}/node-${NODEJS_VERSION}-linux-x64.tar.xz
 RUN set -eux; \
-		mkdir -p /tmp/nodejs; \
-  	curl -L -o /tmp/nodejs/nodejs.tar.xz $NODEJS_URL; \
-		tar -C /tmp/nodejs -xf /tmp/nodejs/nodejs.tar.xz; \
-  	cd /tmp/nodejs/node-$NODEJS_VERSION-linux-x64; \
+    mkdir -p /tmp/nodejs; \
+    curl -L -o /tmp/nodejs/nodejs.tar.xz $NODEJS_URL; \
+    tar -C /tmp/nodejs -xf /tmp/nodejs/nodejs.tar.xz; \
+    cd /tmp/nodejs/node-$NODEJS_VERSION-linux-x64; \
     cp -r bin /usr/local; \
     cp -r include /usr/local; \
     cp -r lib /usr/local; \
