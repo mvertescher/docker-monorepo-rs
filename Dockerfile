@@ -103,10 +103,10 @@ RUN set -eux; \
     cp -r share /usr/local; \
     npm -v;
 
-# Install remark(-cli) and markdownlint for linting markdown files.
+# Install markdownlint for linting markdown files.
 RUN npm install -g \
     markdownlint-cli@0.16.0 \
     markdownlint@0.15.0
 
 # Finally, make Rust accessible for all users
-RUN chmod -R a+w $RUSTUP_HOME $CARGO_HOME
+RUN chmod -R a+rw $RUSTUP_HOME $CARGO_HOME
