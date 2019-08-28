@@ -42,35 +42,22 @@ ENV RUST_STABLE_TOOLCHAIN=1.36.0 \
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
     sh -s -- -y --no-modify-path --default-toolchain=${RUST_STABLE_TOOLCHAIN}
-RUN rustup component add clippy rustfmt
 
-# Install cargo-make
-RUN cargo install cargo-make --version 0.21.0
+RUN set -eux; \
+    rustup component add clippy rustfmt; \
+    rustup install ${RUST_NIGHTLY_TOOLCHAIN}; \
+    cargo install cargo-audit --version 0.6.1; \
+    cargo install cargo-benchcmp --version 0.3.0; \
+    cargo install cargo-bitbake --version 0.3.10; \
+    cargo install cargo-bloat --version 0.8.0; \
+    cargo install cargo-junit --version 0.8.0; \
+    cargo install cargo-make --version 0.22.1; \
+    cargo install cargo-tarpaulin --version 0.8.4; \
+    cargo install mdbook --version 0.2.3; \
+    cargo install mdbook-linkcheck --version 0.2.3;
 
-# Install cargo-bitbake
-RUN cargo install cargo-bitbake --version 0.3.10
-
-# Install cargo bench compare tool
-RUN cargo install cargo-benchcmp --version 0.3.0
-
-# Install mdbook, mdbook-linkcheck
-RUN cargo install mdbook --version 0.2.3 && \
-  cargo install mdbook-linkcheck --version 0.2.3
-
-# Install cargo-audit; https://github.com/RustSec/cargo-audit
-RUN cargo install cargo-audit --version 0.6.1
-
-# Install cargo-junit https://crates.io/crates/cargo-junit
-RUN cargo install cargo-junit --version 0.8.0
-
-# Install cargo-bloat; https://github.com/RazrFalcon/cargo-bloat/releases
-RUN cargo install cargo-bloat --version 0.8.0
-
-# Install tarpaulin https://crates.io/crates/cargo-tarpaulin
-RUN cargo install cargo-tarpaulin --version 0.8.4
-
-# Install the Rust nightly toolchain
-RUN rustup install ${RUST_NIGHTLY_TOOLCHAIN}
+# Make Rust accessible for all users
+RUN chmod -R a+rw $RUSTUP_HOME $CARGO_HOME
 
 # Add link to actual perf binary
 RUN [ -f /usr/lib/linux-tools/*/perf ] && ln -s /usr/lib/linux-tools/*/perf /usr/local/bin/perf
@@ -108,5 +95,15 @@ RUN npm install -g \
     markdownlint-cli@0.16.0 \
     markdownlint@0.15.0
 
-# Finally, make Rust accessible for all users
-RUN chmod -R a+rw $RUSTUP_HOME $CARGO_HOME
+# Install FlameGraph
+RUN set -eux; \
+    git clone https://github.com/brendangregg/FlameGraph.git /usr/local/FlameGraph; \
+    chmod -R +x /usr/local/FlameGraph;
+ENV PATH=${PATH}:/usr/local/FlameGraph
+
+# Install rust-unmangle
+RUN set -eux; \
+    git clone https://github.com/Yamakaky/rust-unmangle.git /usr/local/rust-unmangle; \
+    chmod -R +x /usr/local/rust-unmangle; \
+    ln -s /bin/sed /usr/bin/sed;
+ENV PATH=${PATH}:/usr/local/rust-unmangle
