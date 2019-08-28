@@ -50,7 +50,7 @@ RUN cargo install cargo-make --version 0.21.0
 # Install cargo-bitbake
 RUN cargo install cargo-bitbake --version 0.3.10
 
-# Install cargo bench compare tool and grab old benchmark files
+# Install cargo bench compare tool
 RUN cargo install cargo-benchcmp --version 0.3.0
 
 # Install mdbook, mdbook-linkcheck
