@@ -1,5 +1,8 @@
 FROM ubuntu:bionic-20190307
 
+LABEL maintainer="Matt Vertescher <mvertescher@gmail.com>" \
+      url="https://github.com/mvertescher/docker-monorepo-rs"
+
 # This makes apt-get work without interactive shell
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
