@@ -4,7 +4,7 @@
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/mvertescher/monorepo-rs)
 ![Docker Pulls](https://img.shields.io/docker/pulls/mvertescher/monorepo-rs)
 
-[Dockerhub Repository](https://hub.docker.com/r/mvertescher/monorepo-rs)
+[Docker Hub Repository](https://hub.docker.com/r/mvertescher/monorepo-rs)
 
 > Rust Docker image with some additional tools.
 
