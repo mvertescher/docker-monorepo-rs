@@ -31,6 +31,7 @@ RUN apt-get update && apt-get install -y \
     linux-tools-generic \
     make \
     openssh-client \
+    openssl \
     perl-modules \
     pkgconf \
     sudo \
@@ -56,6 +57,8 @@ RUN set -eux; \
     cargo install cargo-junit --version 0.8.0; \
     cargo install cargo-make --version 0.22.1; \
     cargo install cargo-tarpaulin --version 0.8.4; \
+    cargo install cargo-udeps --version 0.1.4; \
+    cargo install cargo-update --version 1.8.2; \
     cargo install mdbook --version 0.2.3; \
     cargo install mdbook-linkcheck --version 0.2.3;
 
