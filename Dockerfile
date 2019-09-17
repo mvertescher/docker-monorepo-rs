@@ -38,7 +38,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zlib1g-dev
 
-ENV RUST_STABLE_TOOLCHAIN=1.36.0 \
+ENV RUST_STABLE_TOOLCHAIN=1.37.0 \
     RUST_NIGHTLY_TOOLCHAIN=nightly-2019-07-01 \
     RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
@@ -50,17 +50,17 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
 RUN set -eux; \
     rustup component add clippy rustfmt; \
     rustup install ${RUST_NIGHTLY_TOOLCHAIN}; \
-    cargo install cargo-audit --version 0.6.1; \
-    cargo install cargo-benchcmp --version 0.3.0; \
-    cargo install cargo-bitbake --version 0.3.10; \
-    cargo install cargo-bloat --version 0.8.0; \
+    cargo install cargo-audit --version 0.8.1; \
+    cargo install cargo-benchcmp --version 0.4.2; \
+    cargo install cargo-bitbake --version 0.3.11; \
+    cargo install cargo-bloat --version 0.8.3; \
     cargo install cargo-junit --version 0.8.0; \
     cargo install cargo-make --version 0.22.1; \
-    cargo install cargo-tarpaulin --version 0.8.4; \
+    cargo install cargo-tarpaulin --version 0.8.6; \
     cargo install cargo-udeps --version 0.1.4; \
     cargo install cargo-update --version 1.8.2; \
-    cargo install mdbook --version 0.2.3; \
-    cargo install mdbook-linkcheck --version 0.2.3;
+    cargo install mdbook --version 0.3.1; \
+    cargo install mdbook-linkcheck --version 0.4.0;
 
 # Make Rust accessible for all users
 RUN chmod -R a+rw $RUSTUP_HOME $CARGO_HOME
