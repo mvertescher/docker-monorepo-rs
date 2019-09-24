@@ -13,7 +13,7 @@ curl -L -o /tmp/protoc/protoc.zip $PROTOC_URL
 PROTOC_REMOTE_SHA256=$(sha256sum /tmp/protoc/protoc.zip | awk '{print $1}')
 [ "$PROTOC_SHA256" = "$PROTOC_REMOTE_SHA256" ]
 cd /tmp/protoc
-unzip protoc.zip
+unzip -o protoc.zip
 cp -r bin /usr/local
 cp -r include /usr/local
 protoc --version
