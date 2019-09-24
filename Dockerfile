@@ -69,18 +69,8 @@ RUN chmod -R a+rw $RUSTUP_HOME $CARGO_HOME
 RUN [ -f /usr/lib/linux-tools/*/perf ] && ln -s /usr/lib/linux-tools/*/perf /usr/local/bin/perf
 
 # Install the protobuf compiler
-ARG PROTOC_URL=https://github.com/protocolbuffers/protobuf/releases/download/v3.6.0/protoc-3.6.0-linux-x86_64.zip
-ARG PROTOC_SHA256=84e29b25de6896c6c4b22067fb79472dac13cf54240a7a210ef1cac623f5231d
-RUN set -eux; \
-    mkdir -p /tmp/protoc; \
-    curl -L -o /tmp/protoc/protoc.zip $PROTOC_URL; \
-    PROTOC_REMOTE_SHA256=$(sha256sum /tmp/protoc/protoc.zip | awk '{print $1}'); \
-    [ "$PROTOC_SHA256" = "$PROTOC_REMOTE_SHA256" ]; \
-    cd /tmp/protoc; \
-    unzip protoc.zip; \
-    cp -r bin /usr/local; \
-    cp -r include /usr/local; \
-    protoc --version;
+COPY ./install_protoc.sh /tmp/install_protoc.sh
+RUN sh /tmp/install_protoc.sh
 
 # Install nodejs
 ARG NODEJS_VERSION=v10.16.0
