@@ -45,7 +45,7 @@ ENV RUST_STABLE_TOOLCHAIN=1.37.0 \
     PATH=/usr/local/cargo/bin:${PATH}
 
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
-    sh -s -- -y --no-modify-path --default-toolchain=${RUST_STABLE_TOOLCHAIN}
+    sh -s -- -y --no-modify-path --default-toolchain=${RUST_STABLE_TOOLCHAIN} --profile=minimal
 
 RUN set -eux; \
     rustup component add clippy rustfmt; \
