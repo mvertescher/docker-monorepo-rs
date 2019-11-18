@@ -55,7 +55,7 @@ RUN set -eux; \
     cargo install cargo-bitbake --version 0.3.11; \
     cargo install cargo-bloat --version 0.8.3; \
     cargo install cargo-junit --version 0.8.0; \
-    cargo install cargo-make --version 0.22.1; \
+    cargo install cargo-make --version 0.23.0; \
     cargo install cargo-tarpaulin --version 0.8.6; \
     cargo install cargo-udeps --version 0.1.4; \
     cargo install cargo-update --version 1.8.2; \
