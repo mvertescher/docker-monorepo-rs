@@ -38,7 +38,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zlib1g-dev
 
-ENV RUST_STABLE_TOOLCHAIN=1.37.0 \
+ENV RUST_STABLE_TOOLCHAIN=1.42.0 \
     RUST_NIGHTLY_TOOLCHAIN=nightly-2019-07-01 \
     RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
