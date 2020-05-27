@@ -38,7 +38,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zlib1g-dev
 
-ENV RUST_STABLE_TOOLCHAIN=1.37.0 \
+ENV RUST_STABLE_TOOLCHAIN=1.42.0 \
     RUST_NIGHTLY_TOOLCHAIN=nightly-2019-07-01 \
     RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
@@ -55,7 +55,7 @@ RUN set -eux; \
     cargo install cargo-bitbake --version 0.3.11; \
     cargo install cargo-bloat --version 0.8.3; \
     cargo install cargo-junit --version 0.8.0; \
-    cargo install cargo-make --version 0.22.1; \
+    cargo install cargo-make --version 0.23.0; \
     cargo install cargo-tarpaulin --version 0.8.6; \
     cargo install cargo-udeps --version 0.1.5; \
     cargo install cargo-update --version 1.8.2; \
