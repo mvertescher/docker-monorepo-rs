@@ -50,7 +50,7 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
 RUN set -eux; \
     rustup component add clippy rustfmt; \
     rustup install ${RUST_NIGHTLY_TOOLCHAIN}; \
-    cargo install cargo-audit --version 0.8.1; \
+    cargo install cargo-audit --version 0.12.0; \
     cargo install cargo-benchcmp --version 0.4.2; \
     cargo install cargo-bitbake --version 0.3.11; \
     cargo install cargo-bloat --version 0.8.3; \
