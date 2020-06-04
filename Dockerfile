@@ -53,7 +53,7 @@ RUN set -eux; \
     cargo install cargo-audit --version 0.12.0; \
     cargo install cargo-benchcmp --version 0.4.2; \
     cargo install cargo-bitbake --version 0.3.13; \
-    cargo install cargo-bloat --version 0.8.3; \
+    cargo install cargo-bloat --version 0.9.3; \
     cargo install cargo-junit --version 0.8.0; \
     cargo install cargo-make --version 0.23.0; \
     cargo install cargo-tarpaulin --version 0.8.6; \
