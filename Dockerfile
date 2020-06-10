@@ -59,7 +59,7 @@ RUN set -eux; \
     cargo install cargo-tarpaulin --version 0.13.3; \
     cargo install cargo-udeps --version 0.1.12; \
     cargo install cargo-update --version 3.0.0; \
-    cargo install mdbook --version 0.3.1; \
+    cargo install mdbook --version 0.3.7; \
     cargo install mdbook-linkcheck --version 0.4.0;
 
 # Make Rust accessible for all users
