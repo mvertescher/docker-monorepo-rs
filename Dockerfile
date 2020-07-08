@@ -72,6 +72,9 @@ RUN set -eux; \
     cargo install mdbook --version 0.3.7; \
     cargo install mdbook-linkcheck --version 0.6.0;
 
+# Inform cross that we're in Docker
+ENV CROSS_DOCKER_IN_DOCKER=true
+
 # Make Rust accessible for all users
 RUN chmod -R a+rw $RUSTUP_HOME $CARGO_HOME
 
