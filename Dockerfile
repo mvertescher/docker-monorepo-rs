@@ -34,6 +34,7 @@ RUN apt-get update && apt-get install -y \
     openssl \
     perl-modules \
     pkgconf \
+    plantuml \
     sudo \
     unzip \
     zlib1g-dev
