@@ -50,6 +50,14 @@ RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | \
 RUN set -eux; \
     rustup component add clippy rustfmt; \
     rustup install ${RUST_NIGHTLY_TOOLCHAIN}; \
+    rustup target add aarch64-unknown-linux-gnu \
+    rustup target add aarch64-unknown-linux-musl \
+    rustup target add arm-unknown-linux-gnueabihf \
+    rustup target add armv7-unknown-linux-gnueabihf \
+    rustup target add x86_64-unknown-linux-gnu \
+    rustup component add rustfmt \
+    rustup component add clippy \
+    rustup component add rust-src \
     cargo install cargo-audit --version 0.12.0; \
     cargo install cargo-benchcmp --version 0.4.2; \
     cargo install cargo-bitbake --version 0.3.13; \
