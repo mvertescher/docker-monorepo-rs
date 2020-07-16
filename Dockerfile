@@ -69,6 +69,7 @@ RUN set -eux; \
     cargo install cargo-udeps --version 0.1.12; \
     cargo install cargo-update --version 3.0.0; \
     cargo install cross --version 0.2.1; \
+    cargo install flamegraph --version 0.3.0; \
     cargo install mdbook --version 0.3.7; \
     cargo install mdbook-linkcheck --version 0.6.0;
 
