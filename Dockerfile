@@ -63,16 +63,16 @@ RUN set -eux; \
     cargo install cargo-benchcmp --version 0.4.2; \
     cargo install cargo-bitbake --version 0.3.13; \
     cargo install cargo-bloat --version 0.9.3; \
-    cargo install cargo-deb --version 1.27.0; \
+    cargo install cargo-deb --version 1.28.0; \
     cargo install cargo-junit --version 0.8.0; \
-    cargo install cargo-make --version 0.32.0; \
-    cargo install cargo-tarpaulin --version 0.13.3; \
-    cargo install cargo-udeps --version 0.1.12; \
-    cargo install cargo-update --version 3.0.0; \
+    cargo install cargo-make --version 0.32.4; \
+    cargo install cargo-tarpaulin --version 0.14.2; \
+    cargo install cargo-udeps --version 0.1.14; \
+    cargo install cargo-update --version 4.1.1; \
     cargo install cross --version 0.2.1; \
-    cargo install flamegraph --version 0.3.0; \
-    cargo install mdbook --version 0.3.7; \
-    cargo install mdbook-linkcheck --version 0.6.0;
+    cargo install flamegraph --version 0.3.1; \
+    cargo install mdbook --version 0.4.2; \
+    cargo install mdbook-linkcheck --version 0.7.0;
 
 # Inform cross that we're in Docker
 ENV CROSS_DOCKER_IN_DOCKER=true
