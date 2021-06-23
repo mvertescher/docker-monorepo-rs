@@ -39,8 +39,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zlib1g-dev
 
-ENV RUST_STABLE_TOOLCHAIN=1.46.0 \
-    RUST_NIGHTLY_TOOLCHAIN=nightly-2020-06-13 \
+ENV RUST_STABLE_TOOLCHAIN=1.53.0 \
+    RUST_NIGHTLY_TOOLCHAIN=nightly-2021-06-01 \
     RUSTUP_HOME=/usr/local/rustup \
     CARGO_HOME=/usr/local/cargo \
     PATH=/usr/local/cargo/bin:${PATH}
@@ -59,20 +59,21 @@ RUN set -eux; \
     rustup component add rustfmt; \
     rustup component add clippy; \
     rustup component add rust-src; \
-    cargo install cargo-audit --version 0.12.0; \
-    cargo install cargo-benchcmp --version 0.4.2; \
-    cargo install cargo-bitbake --version 0.3.13; \
-    cargo install cargo-bloat --version 0.9.3; \
-    cargo install cargo-deb --version 1.28.0; \
+    cargo install cargo-audit --version 0.14.1; \
+    cargo install cargo-benchcmp --version 0.4.3; \
+    # TODO: bitbake fails to build
+    # cargo install cargo-bitbake --version 0.3.15; \
+    cargo install cargo-bloat --version 0.10.0; \
+    cargo install cargo-deb --version 1.30.0; \
     cargo install cargo-junit --version 0.8.0; \
-    cargo install cargo-make --version 0.32.4; \
-    cargo install cargo-tarpaulin --version 0.14.2; \
-    cargo install cargo-udeps --version 0.1.14; \
-    cargo install cargo-update --version 4.1.1; \
+    cargo install cargo-make --version 0.34.0; \
+    cargo install cargo-tarpaulin --version 0.16.0; \
+    cargo install cargo-udeps --version 0.1.22; \
+    cargo install cargo-update --version 7.0.1; \
     cargo install cross --version 0.2.1; \
-    cargo install flamegraph --version 0.3.1; \
-    cargo install mdbook --version 0.4.2; \
-    cargo install mdbook-linkcheck --version 0.7.0;
+    cargo install flamegraph --version 0.4.0; \
+    cargo install mdbook --version 0.4.10; \
+    cargo install mdbook-linkcheck --version 0.7.4;
 
 # Inform cross that we're in Docker
 ENV CROSS_DOCKER_IN_DOCKER=true
